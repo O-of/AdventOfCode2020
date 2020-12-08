@@ -39,6 +39,7 @@
 #         print(i)
 # # print(ids)
 
-ids = [sum([2 ** (6 - i) for i in range(7) if b_pass[i] == "B"]) * 8 + sum([2 ** (2 - i) for i in range(3) if b_pass[7 + i] == "R"]) for b_pass in open("input.txt", "r").read().split("\n")]
+ids = [sum([2 ** (6 - i) for i in range(7) if b_pass[i] == "B"]) * 8 + sum([2 ** (2 - i) for i in range(3) if b_pass[7 + i] == "R"]) for b_pass in open(
+    "input.txt", "r").read().split("\n")]
 print(max(ids))
 print(list(filter(lambda x: x not in ids,range(27, 963)))[0])
