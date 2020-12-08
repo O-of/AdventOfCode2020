@@ -152,17 +152,17 @@ print(time.time()-start)
 
 # from operator import itemgetter
 #
-import networkx as nx
-import matplotlib.pyplot as plt
-graph = nx.Graph()
-
-for bag in bags:
-    results = bags[bag]
-    if results[0][0] == "other bags.":
-        continue
-
-    for result in results:
-        graph.add_edge(bag, result[0], weight=int(result[1]))
+# import networkx as nx
+# import matplotlib.pyplot as plt
+# graph = nx.Graph()
+#
+# for bag in bags:
+#     results = bags[bag]
+#     if results[0][0] == "other bags.":
+#         continue
+#
+#     for result in results:
+#         graph.add_edge(bag, result[0], weight=int(result[1]))
 
 # # node_and_degree = graph.degree()
 # # (largest_hub, degree) = sorted(node_and_degree, key=itemgetter(1))[-1]
@@ -172,8 +172,8 @@ for bag in bags:
 # # pos = nx.spring_layout(hub_ego)
 # # nx.draw(hub_ego, pos, node_color="b", node_size=50, with_labels=True)
 #
-options = {"node_size": 50, "with_labels": True, "node_color": "b", "cmap": plt.cm.Blues}
+# options = {"node_size": 50, "with_labels": True, "node_color": "b", "cmap": plt.cm.Blues}
 #
 # # nx.draw_networkx_nodes(hub_ego, pos, nodelist=[largest_hub], **options)
-nx.draw(graph, **options)
-plt.show()
+# nx.draw(graph, **options)
+# plt.show()
