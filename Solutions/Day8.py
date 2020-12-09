@@ -2,7 +2,7 @@ from typing import List
 import time
 
 
-class CodeGenerators(object):
+class CodeGenerator(object):
     def __init__(self, inpt: List[str]):
         self.inpt = inpt
 
@@ -27,7 +27,7 @@ class CodeGenerators(object):
             yield copy_inpt
 
 
-class BootLoaderRunner(object):
+class BootCodeRunner(object):
     def __init__(self, inpt: List[str]):
         self.inpt = inpt
 
@@ -80,10 +80,10 @@ class BootLoaderRunner(object):
 class BootLoader(object):
     def __init__(self, inpt: List[str]):
         self.inpt = inpt
-        self.code_generators = CodeGenerators(inpt)
+        self.code_generators = CodeGenerator(inpt)
 
     def run_code(self):
-        boot_loader_runner = BootLoaderRunner([])
+        boot_loader_runner = BootCodeRunner([])
 
         for inpt in self.code_generators.generate_outputs():
             boot_loader_runner.reassign_inpt(inpt)
