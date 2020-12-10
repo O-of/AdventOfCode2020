@@ -33,6 +33,8 @@ part1(inpt_text)
 part2(inpt_text)
 
 print(time.time() - start)
+# # 15 ms
+
 # part2(inpt_text)
 
 

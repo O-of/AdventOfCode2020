@@ -78,6 +78,7 @@
 # # print(len(valid_bags))
 
 import time
+
 start = time.time()
 
 inpt = open("input.txt").read().strip().split("\n")
@@ -119,6 +120,35 @@ class Bag:
             total += result[0].check_num_bags() * result[1]
         return total
 
+    def create_node(self, tree, parent, name, root = False):
+        if not root:
+            try:
+                tree.create_node(self.desc, name, parent)
+            except Exception as e:
+                tree.show()
+                print(parent)
+                input(self.desc)
+                return
+
+        current = 0
+        for output in self.outputs:
+            if output[0].contains_gold:
+                output[0].create_node(tree, name, f"{name}{current}")
+                current += 1
+            else:
+                tree.create_node("...", parent=name)
+
+    def create_node_short(self, tree, parent, root = False):
+        if not root:
+            try:
+                tree.create_node(self.desc, self.desc, parent)
+            except Exception:
+                children = tree.children(self.desc)
+                if len(children) == 0:
+                    tree.create_node(tag="...", parent=self.desc)
+
+        for output in self.outputs:
+            output[0].create_node_short(tree, self.desc)
 
 bags = {}
 bag_to_obj = {}
@@ -146,34 +176,52 @@ for bag in bag_to_obj:
 bag_to_obj["shiny gold"].contains_gold = False
 
 print(sum(bag_to_obj[bag].contains_gold for bag in bag_to_obj))
+print(time.time() - start)
+
 print(bag_to_obj["shiny gold"].check_num_bags())
+print(time.time() - start)
+# # 9 ms
 
-print(time.time()-start)
+bag_to_obj["shiny gold"].contains_gold = True
 
-# from operator import itemgetter
-#
-# import networkx as nx
-# import matplotlib.pyplot as plt
-# graph = nx.Graph()
-#
-# for bag in bags:
-#     results = bags[bag]
-#     if results[0][0] == "other bags.":
+def find_root_nodes():
+    possibles = set(bag_to_obj[b] for b in bag_to_obj)
+    for i in bag_to_obj:
+        for j in bag_to_obj[i].outputs:
+            try:
+                possibles.remove(j[0])
+            except KeyError:
+                continue
+            except IndexError:
+                continue
+
+    return possibles
+
+from treelib import Node, Tree
+
+roots = find_root_nodes()
+nodes_with_gold = [bag_to_obj[bag].desc for bag in bag_to_obj if bag_to_obj[bag].contains_gold]
+
+# for root in roots:
+#     if root.desc not in nodes_with_gold:
 #         continue
 #
-#     for result in results:
-#         graph.add_edge(bag, result[0], weight=int(result[1]))
+#     tree = Tree()
+#
+#     tree.create_node(root.desc, "0")
+#     root.create_node(tree, "0", "0", True)
+#
+#
+#     tree.show()
+#     tree.save2file("trees.txt")
 
-# # node_and_degree = graph.degree()
-# # (largest_hub, degree) = sorted(node_and_degree, key=itemgetter(1))[-1]
-# #
-# # hub_ego = nx.ego_graph(graph, largest_hub)
-# #
-# # pos = nx.spring_layout(hub_ego)
-# # nx.draw(hub_ego, pos, node_color="b", node_size=50, with_labels=True)
-#
-# options = {"node_size": 50, "with_labels": True, "node_color": "b", "cmap": plt.cm.Blues}
-#
-# # nx.draw_networkx_nodes(hub_ego, pos, nodelist=[largest_hub], **options)
-# nx.draw(graph, **options)
-# plt.show()
+for root in roots:
+    if root.desc not in nodes_with_gold:
+        continue
+
+    tree = Tree()
+
+    tree.create_node(root.desc, root.desc)
+    root.create_node(tree, root.desc, True)
+
+    tree.save2file("trees.txt")

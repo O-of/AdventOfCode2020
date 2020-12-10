@@ -1,6 +1,7 @@
 from typing import List
 import time
 
+start = time.time()
 
 class CodeGenerator(object):
     def __init__(self, inpt: List[str]):
@@ -92,10 +93,8 @@ class BootLoader(object):
             if result:
                 break
 
-
-start = time.time()
-
 loader = BootLoader(open("input.txt").read().strip().split('\n'))
 loader.run_code()
 
 print(time.time() - start)
+# # 41 ms

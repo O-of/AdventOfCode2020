@@ -1,3 +1,7 @@
+import time
+
+start = time.time()
+
 # inpt = []
 
 # with open("input.txt", "r") as f:
@@ -103,3 +107,5 @@ for passport in good:
 
 print(len(good))
 print(total)
+print(time.time() - start)
+# # 7 ms
