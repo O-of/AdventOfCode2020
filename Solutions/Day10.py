@@ -53,4 +53,7 @@
 #
 # print(b[0])
 
-print([p.count(1)*p.count(3) for p in [[i[j+1]-i[j] for i in [[x.extend((0, max(x)+3)),x.sort(),x][2] for x in [list(map(int,open("input.txt").read().split()))]] for j in range(len(i)-1)]]][0])
+# print([p.count(1)*p.count(3) for p in [[i[j+1]-i[j] for i in [[x.extend((0, max(x)+3)),x.sort(),x][2] for x in [list(map(int,open("input.txt").read().split()))]] for j in range(len(i)-1)]]][0])
+# print([adapters for adapters in sorted(map(int,open("input.txt").read().split()), reverse=True)])
+# print([[cache.setdefault(adapter, (1, sum([cache[num] for num in adapters if 0<num-adapter<4]))[bool(len(cache))]), cache][1] for cache in [{}] for adapters in [[x.extend((0, max(x)+3)),x.sort(reverse=True),x][2] for x in [list(map(int,open("input.txt").read().split()))]] for adapter in adapters][0][0])
+print([[c.setdefault(b,(1,sum([c[d]for d in a if 0<d-b<4]))[bool(len(c))]),c][1]for c in[{}]for a in[[x.extend((0,max(x)+3)),x.sort(reverse=True),x][2]for x in[list(map(int,open("input.txt").read().split()))]]for b in a][0])
